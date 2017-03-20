@@ -1,22 +1,29 @@
 import random
 
-class physical_mem:
-	def __init__(self, size):
-		self.s = size
+class PhysicalMemory:
+	def __init__(self):
 		self.mem = {}
 		self.q = []
 
-	def clock():
+	def clock(self):
 		pass
 
-	def contains(frame_id):
-		pass
+	def contains(self, frame_id):
+		return frame_id in self.mem
 
-	def put(frame_id):
-		pass
+	def put(self, frame_id):
+		q.insert(0, frame_id)
+		self.mem[frame_id] = "data1" 
 
-	def access(frame_id, mode):
-		pass
+	def access(self, frame_id, mode):
+		if mode:
+			if not contains(frame_id):
+				q.insert(0, frame_id)
+			self.mem[frame_id] = "data2"
+			return
+		else:
+			return self.mem[frame_id]
 
-	def evict():
-		pass
+	def evict(self):
+		if len(q) > 0:
+			del self.mem[q.pop()]

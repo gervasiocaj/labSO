@@ -1,9 +1,8 @@
-def PhysicalMemory:
+class PhysicalMemory:
   ALGORITHM_AGING_NBITS = 8
 
-  def __init__(self, algorithm):
-    assert algorithm in {"fifo", "nru", "aging", "second-chance"}
-    self.algorithm = algorithm
+  def __init__(self):
+    pass
 
   def put(self, frameId):
     """Allocates this frameId for some page"""

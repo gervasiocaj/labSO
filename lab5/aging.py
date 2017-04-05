@@ -2,25 +2,54 @@ class PhysicalMemory:
   ALGORITHM_AGING_NBITS = 8
 
   def __init__(self):
-    pass
+    self.mem = {}
+
+  def contains(self, frame_id):
+    return frame_id in self.mem
 
   def put(self, frameId):
-    """Allocates this frameId for some page"""
-    # Notice that in the physical memory we don't care about the pageId, we only
-    # care about the fact we were requested to allocate a certain frameId
-    pass
+    self.mem[frameId] = Element("data1")
 
   def evict(self):
-    """Deallocates a frame from the physical memory and returns its frameId"""
-    # You may assume the physical memory is FULL so we need space!
-    # Your code must decide which frame to return, according to the algorithm
-    pass
+    f_id = self.mem.keys()[0]
+    for i in self.mem.keys():
+      if self.mem[i].numericValue() < self.mem[f_id].numericValue():
+        f_id = i
+    del self.mem[f_id]
+    return f_id
 
   def clock(self):
-    """The amount of time we set for the clock has passed, so this is called"""
-    # Clear the reference bits (and/or whatever else you think you must do...)
-    pass
+    for i in self.mem.keys():
+      self.mem[i].clock()
 
   def access(self, frameId, isWrite):
-    """A frameId was accessed for read/write (if write, isWrite=True)"""
-    pass
+    if isWrite:
+      self.mem[frameId].setd("data2")
+      return
+    else:
+      return self.mem[frameId].read()
+
+
+class Element:
+
+  def __init__(self, data):
+    self.data = data
+    self.counters = [0 for i in range(8)]
+    self.referenced = 0
+
+  def numericValue(self): # eficiencia foi pro espaco
+    lista_str = [str(i) for i in self.counters]
+    return int(''.join(lista_str), 2)
+
+  def read(self):
+    self.referenced = 1
+    return self.data
+
+  def setd(self, data):
+    self.data = data
+
+  def clock(self):
+    self.counters.pop()
+    self.counters.insert(0, self.referenced)
+    self.referenced = 0
+

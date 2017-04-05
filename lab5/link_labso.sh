@@ -1,5 +1,5 @@
-GERVA=~/workspace/labSO/lab5
-MANEL=~/workspace/manel-labso/lab5/python
+GERVA=~/labSO/lab5
+MANEL=~/manel-labSO/lab5/python
 
 rm -f $MANEL/phymem.py.bak
 mv    $MANEL/phymem.py          $MANEL/phymem.py.bak
